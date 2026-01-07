@@ -2,7 +2,7 @@
 import React, { useState, useMemo } from 'react';
 import { SimulationConfig, MonthRecord, SummaryData, InterestTier } from './types';
 import { runSimulation } from './services/simulatorEngine';
-import { BASE_START_DATE, MORTGAGE_SCHEDULE } from './constants';
+import { BASE_START_DATE, MORTGAGE_SCHEDULE, INITIAL_NON_MORTGAGE_EXPENSES } from './constants';
 import { 
   TrendingUp, 
   Wallet, 
@@ -200,20 +200,47 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col font-sans bg-slate-50">
       {/* PDF PRINT HEADER */}
-      <div className="print-header hidden p-6 bg-white">
-        <div className="flex justify-between items-end border-b-4 border-slate-900 pb-6">
-          <div className="flex items-center gap-4">
-            <div className="bg-slate-900 text-white p-3 rounded-xl">
-              <Calculator size={32} />
+      <div className="print-header hidden p-8 bg-white">
+        <div className="flex justify-between items-start border-b-4 border-slate-900 pb-8 mb-8">
+          <div className="flex items-center gap-5">
+            <div className="bg-slate-900 text-white p-4 rounded-2xl">
+              <Calculator size={40} />
             </div>
             <div>
-              <h1 className="text-3xl font-black text-slate-900 tracking-tighter uppercase leading-none">Mortgage Acceleration Audit</h1>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-[0.3em] mt-1">Certified Financial Simulation Ledger</p>
+              <h1 className="text-4xl font-black text-slate-900 tracking-tighter uppercase leading-none">Mortgage Acceleration Audit</h1>
+              <p className="text-sm font-bold text-slate-500 uppercase tracking-[0.3em] mt-2">Executive Strategy Report</p>
             </div>
           </div>
-          <div className="text-right text-[10px] font-mono font-bold text-slate-600">
-            CONFIDENTIAL REPORT • {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+          <div className="text-right">
+             <div className="text-[10px] font-mono font-black text-slate-400 uppercase tracking-widest mb-1">Generated On</div>
+             <div className="text-xs font-bold text-slate-900 uppercase">
+               {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'long', year: 'numeric' })}
+             </div>
           </div>
+        </div>
+
+        {/* PRINT ONLY CONFIG SUMMARY */}
+        <div className="grid grid-cols-5 gap-6 mb-8 p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+           <div className="space-y-1">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Base Salary</span>
+              <div className="text-sm font-black text-slate-900">{formatCurrency(config.initialBasicSalary)}</div>
+           </div>
+           <div className="space-y-1">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Salary Growth</span>
+              <div className="text-sm font-black text-slate-900">{config.salaryGrowthRate}% / Year</div>
+           </div>
+           <div className="space-y-1">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Base Expenses</span>
+              <div className="text-sm font-black text-slate-900">{formatCurrency(INITIAL_NON_MORTGAGE_EXPENSES)}</div>
+           </div>
+           <div className="space-y-1">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Expense Inflation</span>
+              <div className="text-sm font-black text-slate-900">{config.expenseInflationRate}% / Year</div>
+           </div>
+           <div className="space-y-1">
+              <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest block">Penalty Rate</span>
+              <div className="text-sm font-black text-rose-600">{config.extraPaymentPenaltyRate}% per Extra</div>
+           </div>
         </div>
       </div>
 
@@ -730,7 +757,6 @@ const App: React.FC = () => {
                         </td>
                         <td className="px-4 py-3 text-right font-black bg-slate-50/50">{formatCurrency(r.totalIncome)}</td>
                         
-                        {/* HEALTH RATIOS */}
                         <td className="px-4 py-3 text-center">
                           <span className={`px-2 py-1 rounded-md font-black ${getExpColor(expRatio)}`}>
                             {formatPercent(expRatio)}
@@ -761,6 +787,15 @@ const App: React.FC = () => {
                   })}
                 </tbody>
               </table>
+            </div>
+
+            {/* PRINT ONLY FOOTER */}
+            <div className="print-footer hidden border-t border-slate-200 mt-10 pt-6 px-4">
+               <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <div>© alanburhanudin • developer</div>
+                  <div>KPR Master Sim V5.6 • Ledger Authority</div>
+                  <div>Page 1 of 1</div>
+               </div>
             </div>
           </section>
         </main>

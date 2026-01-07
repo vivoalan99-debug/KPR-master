@@ -21,7 +21,7 @@
     @media print {
       @page {
         size: A3 landscape;
-        margin: 15mm 10mm;
+        margin: 10mm;
       }
       
       html, body, #root, .min-h-screen, .flex-1, main {
@@ -48,20 +48,10 @@
       /* PRINT-ONLY SECTIONS */
       .print-header {
         display: block !important;
-        margin-bottom: 30px !important;
-        border-bottom: 3px solid #000 !important;
-        padding-bottom: 10px !important;
       }
 
-      .print-summary-box {
-        display: grid !important;
-        grid-template-columns: repeat(4, 1fr) !important;
-        gap: 20px !important;
-        margin-bottom: 30px !important;
-        background: #f8fafc !important;
-        padding: 20px !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 8px !important;
+      .print-footer {
+        display: block !important;
       }
 
       /* TABLE OPTIMIZATION */
@@ -82,7 +72,7 @@
         width: 100% !important;
         min-width: 100% !important;
         table-layout: auto !important;
-        font-size: 7.5pt !important;
+        font-size: 7pt !important;
         border-collapse: collapse !important;
       }
 
@@ -90,31 +80,29 @@
         background-color: #0f172a !important;
         color: white !important;
         -webkit-print-color-adjust: exact;
-        padding: 6pt 4pt !important;
-        font-weight: 800 !important;
+        padding: 4pt !important;
+        font-weight: 900 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.05em !important;
+        border: 0.2pt solid #1e293b !important;
       }
 
       td {
-        padding: 4pt !important;
-        border-bottom: 0.5pt solid #e2e8f0 !important;
+        padding: 3pt 4pt !important;
+        border: 0.1pt solid #e2e8f0 !important;
         white-space: nowrap !important;
       }
 
       .bg-slate-900 { background-color: #0f172a !important; color: white !important; }
       .bg-indigo-900 { background-color: #1e1b4b !important; color: white !important; }
-      .bg-amber-50 { background-color: #fffbeb !important; }
-      .bg-indigo-50 { background-color: #eef2ff !important; }
-      .text-emerald-600 { color: #059669 !important; }
-      .text-indigo-600 { color: #4f46e5 !important; }
-      .text-rose-600 { color: #e11d48 !important; }
+      .bg-slate-50 { background-color: #f8fafc !important; }
+      .bg-rose-900\/40 { background-color: rgba(136, 19, 55, 0.1) !important; }
+      .bg-emerald-900\/40 { background-color: rgba(6, 78, 59, 0.1) !important; }
 
       thead { display: table-header-group !important; }
       tr { page-break-inside: avoid !important; }
     }
 
-    .print-header, .print-summary-box {
+    .print-header, .print-footer {
       display: none;
     }
   </style>
